@@ -27,6 +27,15 @@ namespace Fisher.Bookstore.Api
         public void ConfigureServices(IServiceCollection services)
   
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+            
+            //Code from Lab on API with hardcoded values
             services.AddDbContext<BookstoreContext>(opt => opt.UseInMemoryDatabase("Books"));
             services.AddMvc();
         }
@@ -38,7 +47,7 @@ namespace Fisher.Bookstore.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
