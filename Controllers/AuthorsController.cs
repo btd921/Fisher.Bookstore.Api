@@ -80,7 +80,7 @@ namespace Fisher.Bookstore.Api.Controllers
             }
 
             currentAuthor.Name = newAuthor.Name;
-            currentAuthor.BirthDate = newAuthor.BirthDate;
+            currentAuthor.Bio = newAuthor.Bio;
             ;
 
             this.db.Authors.Update(currentAuthor);

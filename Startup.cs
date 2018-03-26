@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Fisher.Bookstore.Api.Models;
 using Fisher.Api.Models;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 namespace Fisher.Bookstore.Api
 {
@@ -27,16 +29,17 @@ namespace Fisher.Bookstore.Api
         public void ConfigureServices(IServiceCollection services)
   
         {
-            services.AddCors(options =>
+          /*   services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            
-            //Code from Lab on API with hardcoded values
-            services.AddDbContext<BookstoreContext>(opt => opt.UseInMemoryDatabase("Books"));
+             */
+            //Connect to Postgre DB
+            services.AddDbContext<BookstoreContext>(options => 
+                options.UseNpgsql(Configuration.GetConnectionString("BookstoreConnection")));
             services.AddMvc();
         }
 
